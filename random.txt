@@ -9,7 +9,7 @@ import (
 func main() {
 	var a,lineStr string
 	var keycount int
-	userFile := "./src/millonRandom.txt"//在此处修改读取文件地址，请在文件的末尾多打出一个空行
+	userFile := "./src/millionRandom.txt"//在此处修改读取文件地址，请在文件的末尾多打出一个空行
 	fin,err := os.Open(userFile)
 	defer fin.Close()
 	if err != nil {
