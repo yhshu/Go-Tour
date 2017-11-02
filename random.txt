@@ -1,0 +1,56 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+	"strconv"
+)
+func main() {
+	var a,lineStr string
+	var keycount int
+	userFile := "./src/millonRandom.txt"//在此处修改读取文件地址，请在文件的末尾多打出一个空行
+	fin,err := os.Open(userFile)
+	defer fin.Close()
+	if err != nil {
+		fmt.Println(userFile,err)
+		return
+	}
+	buf := make ([]byte,1000000)
+	m := make(map[string]int)
+	for{
+		n,_ := fin.Read(buf)
+		if 0==n {
+			break
+		}
+	}
+	a = string(buf)
+	for _, lineStr = range strings.Split(a,"\n") {
+		lineStr =strings.TrimSpace(lineStr)
+		if lineStr =="" {
+			continue
+		}
+		m[lineStr] = m[lineStr] + 1
+	}
+    for _,_ = range m {
+    	keycount++
+	}
+	userFile2 := "./src/outcome.txt"//在此处设置输出文件位置及名字
+	fout,err2 := os.Create(userFile2)
+	defer fout.Close()
+	if err2 != nil {
+		fmt.Println(userFile2,err)
+		return
+	}
+	for key,count := range m {
+		scount := strconv.Itoa(count)
+		fout.WriteString(key)
+		fout.WriteString(":")
+		fout.WriteString(scount)
+		fout.WriteString("\n")
+	}
+	skeycount := strconv.Itoa(keycount-1)
+    fout.WriteString("In total there are ")
+    fout.WriteString(skeycount)
+    fout.WriteString(" kinds of numbers.")
+}
